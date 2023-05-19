@@ -17,11 +17,13 @@ namespace TodoList
 
         public static void load(TableLayoutPanel todosContainer)
         {
-            TodosStoreManagement.todosContainerRef = todosContainer; 
-            todos = getItems();
-            TodosStoreManagement.todos.ForEach((todosItem) =>
+            if(todos == null)
             {
-                System.Diagnostics.Debug.WriteLine(todosItem.title);
+                todosContainerRef = todosContainer;
+                todos = getItems();
+            }
+            todos.ForEach((todosItem) =>
+            {
                 TodoCard card = new();
                 card.SetTodoValues(todosItem);
                 todosContainer.Controls.Add(card);
@@ -33,7 +35,7 @@ namespace TodoList
         public static void updatePanel()
         {
             todos = getItems();
-            TodoDTO newTodo =TodosStoreManagement.todos.Last();
+            TodoDTO newTodo = todos.Last();
             TodoCard card = new();
             card.SetTodoValues(newTodo);
             todosContainerRef.Controls.Add(card);
@@ -44,22 +46,35 @@ namespace TodoList
         public static async Task addItem(TodoDTO newItem)
         {
             using FileStream fs = new FileStream(filename, FileMode.OpenOrCreate);
+            newItem.id = todos.Count.ToString(); 
             todos.Add(newItem);
-            // todos.ForEach(item => System.Diagnostics.Debug.WriteLine(item.title, item.description)); 
-
             await JsonSerializer.SerializeAsync(fs, todos.ToArray(), new JsonSerializerOptions { WriteIndented = true });
             await fs.DisposeAsync();
-
             fs.Close();
-
             updatePanel();  
 
         }
 
 
-        public static void removeItem()
+        public static async Task removeItem(TodoDTO todo, Control parent)
         {
-
+            int id = 0; 
+            for (int i = 0; i < todos.Count; i++)
+            {
+         
+               if(todos[i].id == todo.id)
+                {
+                    id = i;
+                }
+            }
+            todos.RemoveAt(id);
+            File.WriteAllText(filename, string.Empty);
+            using FileStream fs = new FileStream(filename, FileMode.Open);
+            await JsonSerializer.SerializeAsync(fs, todos.ToArray(), new JsonSerializerOptions { WriteIndented = true });
+            await fs.DisposeAsync();
+            fs.Close();
+            todosContainerRef.Controls.Remove(parent);
+            todosContainerRef.Refresh();
         }
 
         public static void updateItem()
@@ -78,9 +93,7 @@ namespace TodoList
             {
                 
                 string jsonString = File.ReadAllText(filename);
-                System.Diagnostics.Debug.WriteLine(jsonString);
                     List<TodoDTO> todos = JsonSerializer.Deserialize<List<TodoDTO>>(jsonString)!;
-
                 return todos;
             }
 

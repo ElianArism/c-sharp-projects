@@ -31,6 +31,7 @@
             this.updateTodo = new System.Windows.Forms.Button();
             this.deleteTodo = new System.Windows.Forms.Button();
             this.todoTitle = new System.Windows.Forms.TextBox();
+            this.dateLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // updateTodo
@@ -50,20 +51,33 @@
             this.deleteTodo.TabIndex = 1;
             this.deleteTodo.Text = "Delete";
             this.deleteTodo.UseVisualStyleBackColor = true;
+            this.deleteTodo.Click += new System.EventHandler(this.deleteTodo_Click);
             // 
             // todoTitle
             // 
-            this.todoTitle.Location = new System.Drawing.Point(17, 37);
+            this.todoTitle.Location = new System.Drawing.Point(14, 39);
             this.todoTitle.Name = "todoTitle";
             this.todoTitle.ReadOnly = true;
+            this.todoTitle.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.todoTitle.Size = new System.Drawing.Size(350, 27);
             this.todoTitle.TabIndex = 2;
+            // 
+            // dateLabel
+            // 
+            this.dateLabel.AutoSize = true;
+            this.dateLabel.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dateLabel.Location = new System.Drawing.Point(14, 16);
+            this.dateLabel.Name = "dateLabel";
+            this.dateLabel.Size = new System.Drawing.Size(85, 20);
+            this.dateLabel.TabIndex = 3;
+            this.dateLabel.Text = "Date Hello ";
             // 
             // TodoCard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.Controls.Add(this.dateLabel);
             this.Controls.Add(this.todoTitle);
             this.Controls.Add(this.deleteTodo);
             this.Controls.Add(this.updateTodo);
@@ -79,5 +93,6 @@
         private Button updateTodo;
         private Button deleteTodo;
         private TextBox todoTitle;
+        private Label dateLabel;
     }
 }

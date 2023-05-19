@@ -25,8 +25,18 @@ namespace TodoList
         {
             this.todo = todo;
 
-            this.todoTitle.Text = todo.title; 
+            todoTitle.Text = todo.title;
+            dateLabel.Text = todo.creationDate.ToString(); 
+        }
 
+        private async void deleteTodo_Click(object sender, EventArgs e)
+        {
+            Button s = (Button)sender;
+            s.Enabled = false; 
+            await TodosStoreManagement.removeItem(this.todo, s.Parent);
+            s.Enabled = true;
+             
+            
         }
     }
 }
