@@ -67,9 +67,11 @@
             // 
             // todosContainer
             // 
+            this.todosContainer.AutoScroll = true;
             this.todosContainer.ColumnCount = 1;
             this.todosContainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.todosContainer.Location = new System.Drawing.Point(3, 94);
+            this.todosContainer.MaximumSize = new System.Drawing.Size(1161, 701);
             this.todosContainer.Name = "todosContainer";
             this.todosContainer.RowCount = 1;
             this.todosContainer.RowStyles.Add(new System.Windows.Forms.RowStyle());
