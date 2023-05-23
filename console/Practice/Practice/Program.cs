@@ -10,7 +10,8 @@ namespace Practice
 
             // Arrays();
             // Random();
-            Dates();
+            // Dates();
+            OverloadOperatorsWithFractions();
         }
 
 
@@ -44,7 +45,20 @@ namespace Practice
         static void Dates()
         {
             Dates datesExcercises = new Dates();
-            datesExcercises.DatesDeclaration();
+
+            // datesExcercises.DatesDeclaration();
+            datesExcercises.DatesOperation();
+
+        }
+
+        static void OverloadOperatorsWithFractions()
+        {
+            FractionWithOverloadOperator f1 = new FractionWithOverloadOperator { Numerator = 1, Denominator = 3 };
+            FractionWithOverloadOperator f2 = new FractionWithOverloadOperator { Numerator = 2, Denominator = 4 };
+
+            FractionWithOverloadOperator f3 = f1 + f2;
+
+            Console.WriteLine($"{f1} + {f2} = {f3}");
         }
     }
 }
